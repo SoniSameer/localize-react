@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import UploadModal from '../components/UploadModal';
-import LocalisationModal from '../components/LocalisationModal';
+import LocalizationModal from '../components/LocalizationModal';
 
 const Dashboard = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showLocalisationModal, setShowLocalisationModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState('');
 
-  const handleUpload = () => {
+  const handleUpload = (file, language) => {
+    setSelectedFile(file);
+    setSelectedLanguage(language);
     setShowUploadModal(false);
     setShowLocalisationModal(true);
   };
@@ -27,8 +31,18 @@ const Dashboard = () => {
           </button>
         </div>
       </div>
-      <UploadModal open={showUploadModal} onClose={() => setShowUploadModal(false)} onUpload={handleUpload} />
-      <LocalisationModal open={showLocalisationModal} onClose={() => setShowLocalisationModal(false)} onLocalise={() => setShowLocalisationModal(false)} />
+      <UploadModal 
+        open={showUploadModal} 
+        onClose={() => setShowUploadModal(false)} 
+        onUpload={handleUpload} 
+      />
+      <LocalizationModal 
+        open={showLocalisationModal} 
+        onClose={() => setShowLocalisationModal(false)} 
+        onLocalise={() => setShowLocalisationModal(false)}
+        selectedFile={selectedFile}
+        selectedLanguage={selectedLanguage}
+      />
     </div>
   );
 };
